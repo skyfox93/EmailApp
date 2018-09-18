@@ -6,8 +6,13 @@ const express=require('express');
 //var mimelib=require('mime-lib');
 var sendApp=require('./index.js');
 var nodemailer=require('nodemailer');
-var credentials=require('./credentials.json')
-var token=require('./token.json');
+
+// Load Google Credentials
+try{ var credentials=require('./credentials.json')
+var token=require('./token.json');} {catch(err){ ' no user credentials stored. That is okay!'}
+///
+
+
 const { parse } = require('querystring');
 var pageNum=0;
 const readline = require('readline');
