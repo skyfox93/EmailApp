@@ -9,7 +9,7 @@ var nodemailer=require('nodemailer');
 
 // Load Google Credentials
 try{ var credentials=require('./credentials.json')
-var token=require('./token.json');} {catch(err){ ' no user credentials stored. That is okay!'}
+var token=require('./token.json')} catch(error){ ' no user credentials stored. That is okay!';}
 ///
 
 
@@ -145,7 +145,7 @@ function messagelister (err, res){parsedlist=[];
     const labels = res.data.messages;
     if (labels) {
       labels.forEach((label) => {
-gmail.users.messages.get({userId: 'me', id:label.id, format:"raw"},(er, result) => {if(err){console.log('ohnoes');} else{let buffed = new Buffer(result.data.raw,'base64'); simpleParser(buffed.toString(), (err,parsed) => {if (parsed){parsedlist.push(parsed)}});}})})}}
+gmail.users.messages.get({userId: 'me', id:label.id, format:"raw"},(er, result) => {if(err){console.log('ohnoes');} else{let buffed = new Buffer(result.data.raw,'base64'); simpleParser(buffed.toString(), (err,parsed) => {if (parsed){parsedlist.unshift(parsed)}});}})})}}
 
 
 };
@@ -169,7 +169,7 @@ sendApp(response,parsedlist,pageNum);
 response.end('</body></html>');
 //prepareEmails();
 }
-if(request.url==='/query?'){let query='';let rawbody='';request.on('data', chunk =>{rawbody+=chunk});request.on('end',()=>{query=rawbody;console.log(query);authorize(credentials, listMessages);
+if(request.url==='/query?'){let query=[];let rawbody=[];request.on('data', chunk =>{rawbody+=chunk});request.on('end',()=>{query=rawbody;console.log(query);
 sendApp(response,parsedlist,pageNum);
 })}
 else{if(isNaN(emailNum)){response.end();return} response.statusCode = 200;response.writeHead(200, {"Content-Type": "text/html"});console.log(parsedlist.length);
