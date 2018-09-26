@@ -3,8 +3,10 @@ var fs=require('fs');
 var http=require('http');
 var path=require('path');
 const express=require('express');
+const bodyParser=require('body-parser');
+
 //var mimelib=require('mime-lib');
-var sendApp=require('./index.js');
+var sendApp=require('./indexVanilla.js');
 var nodemailer=require('nodemailer');
 
 // Load Google Credentials
@@ -24,8 +26,8 @@ var labelslist=[];
 let parsedlist=[];
 
 fs.watch(path.resolve('./index.js'),reload);
-function reload(){delete require.cache[require.resolve('./index.js')];
-sendApp=require('./index.js');console.log('updated');}
+function reload(){delete require.cache[require.resolve('./indexVanilla.js')];
+sendApp=require('./indexVanilla.js');console.log('updated');}
 const simpleParser = require('mailparser').simpleParser;
 
 
@@ -149,7 +151,6 @@ gmail.users.messages.get({userId: 'me', id:label.id, format:"raw"},(er, result) 
 
 
 };
-
 
 
 
