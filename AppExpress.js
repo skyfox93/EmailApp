@@ -10,9 +10,6 @@ var nodemailer=require('nodemailer');
 // Load Google Credentials
 try{ var credentials=require('./credentials.json')
 var token=require('./token.json')} catch(error){ ' no user credentials stored. That is okay!';}
-///
-
-
 const { parse } = require('querystring');
 var pageNum=0;
 const readline = require('readline');
@@ -41,32 +38,6 @@ let transporter = nodemailer.createTransport({
         expires:token.expiry_date
     }
 });
-
-/// If you want to import mail from a folder instead of using Gmail (originally the only options)
-/*
-let filelist=[];
-let Mailfolder="/Users/SkylarSalerno/Library/Mail/V5/51AC7079-35C3-4E0E-B326-32826F550B60/[Gmail].mbox/All Mail.mbox";
-//let Mailfolder="./test_emails";
-
-// Program!
-//openfolder(Mailfolder);
-//filelist.sort(function(a,b){return parseInt(path.basename(b))-parseInt(path.basename(a))});
-
-//console.log(filelist.length);
-//prepareEmails();
-console.log ('ready to start server');
-
-
-/*
-function openfolder(dir){if(fs.statSync(dir).isDirectory()){
-var filenames=fs.readdirSync(dir);filenames.forEach(function(filename){openfolder(dir+'/'+filename);if(path.extname(filename)==".emlx"){  filelist.push(dir+'/'+filename)}})}}
-
-
-function prepareEmails(){for(let i=emails;i<emails+25;i++){if(filelist[emails+i]){parseEmail(filelist[emails+i]);}} emails+=25;}
-
-function parseEmail(file){content=fs.readFileSync(file,'utf-8'); simpleParser(content, (err, parsed) => {parsedlist.push(parsed)})};
-*/
-
 
 // Load client secrets from a local file.
 fs.readFile('credentials.json', (err, content) => {
